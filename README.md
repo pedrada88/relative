@@ -12,7 +12,7 @@ In addition, we also release the English Wikipedia dump used in our experiments,
 
 ### Code
 
-Available now: relative-init
+In the following you can find how to easily get your relation embeddings given a corpus.
 
 **Requirements:**
 
@@ -26,7 +26,7 @@ Available now: relative-init
 python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
 ```
 
-With this command you can directly get your relation embeddings given a tokenized corpus as input. The input word embeddings can be *txt* or *bin*, as those formats accepted by gensim. The input word embeddings can be trained on the same corpus (as in the paper) or pre-trained on a different corpus.
+With this command you can directly get your relation embeddings given a tokenized corpus as input. You can use any word embeddings as input, either in *txt* or *bin* formats (those accepted by gensim). The input word embeddings can be trained on the same corpus (as in the reference paper) or pre-trained on a different corpus.
 
 Example:
 
@@ -64,7 +64,7 @@ A number of optional parameters can be specified to your needs:
 
 -max_pairsize: Maximum number of word pairs. Default: 3000000
 
-##### Example:
+#### Example:
 
 For example, if you would like to give your own pair vocabulary as input and specify a shorter window size to 5 (instead of the default 10), you can type the following:
 
