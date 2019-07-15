@@ -103,7 +103,7 @@ if __name__ == '__main__':
     parser.add_argument('-embeddings', '--input_embeddings', help='Input word embeddings path', required=True)
     parser.add_argument('-norm', '--normalization', help='Output vectors normalized ("true") or not ("false")', required=False, default="false")
     parser.add_argument('-output', '--output_vectors_path', help='Output file path to store relation vectors', required=False, default="./relative_init_vectors.txt")
-    parser.add_argument('-contexts', '--input_contexts_path', help='Path of the input contexts. Write "false" if not provided', required=False, default="false")
+    parser.add_argument('-contexts', '--input_contexts_path', help='Path of the input contexts directory. Write "false" if not provided', required=False, default="false")
 
     # The following parameters are needed if contexts are not provided
 
@@ -119,12 +119,11 @@ if __name__ == '__main__':
     
     parser.add_argument('-wordsize', '--wordvocabulary_size',
                         help='Maximum number of words considered (sorted by frequency)', required=False, default=100000)
-    parser.add_argument('-output_pairvocab', '--output_pairvocab_path', help='Output directory to store pair vocabulary', required=False, default="./relative_init_vectors.txt")
     parser.add_argument('-stopwords', '--stopwords_path',
                         help='Path to stopwords file. Write "false" if no stopwords to be used', required=False, default="./stopwords_en.txt")
     parser.add_argument('-min_freq', '--minimum_frequency',
-                        help='Minimum frequency of words. If standard vocabulary, you can write ./vocab/word_frequency_all.txt', required=False, default=5)
-    parser.add_argument('-smoothing', '--alpha_smoothing_factor', help='Alpha smoothing factor in the pmi calculation (default=1)', required=False, default=1)
+                        help='Minimum frequency of words', required=False, default=5)
+    parser.add_argument('-smoothing', '--alpha_smoothing_factor', help='Alpha smoothing factor in the pmi calculation', required=False, default=1)
     parser.add_argument('-min_occ', '--min_occurrences_pairs', help='Minimum number of occurrences required for word pairs', required=False, default=5)
     parser.add_argument('-max_pairsize', '--max_pairvocabulary_size', help='Maximum number of word pairs', required=False, default=3000000)
     
@@ -153,6 +152,7 @@ if __name__ == '__main__':
             max_pairsize=int(args['max_pairvocabulary_size'])
             min_freq_cooc=int(args['minimum_frequency_context'])
             #Get frequency dictionary from corpus
+            print ("Loading word frequency dictionary...")
             dict_freq=get_word_vocab(corpus_path)
             if stopwords_path.lower()=="false": set_stopwords=set()
             else: set_stopwords=get_stopwords(stopwords_path)
@@ -168,8 +168,9 @@ if __name__ == '__main__':
                     word2index[word]=cont_wordvocab
                     index2word[cont_wordvocab]=word
                     cont_wordvocab+=1
+            print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
             set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,"False")
-            dict_pairvocab=get_dict_pairvocab_fromset(set_pairvocab,word2index)  
+            dict_pairvocab=get_dict_pairvocab_fromset(set_pairvocab,word2index)
         else:
             # Retrieve pair and word vocabulary (dictionary)
             dict_pairvocab=get_vocab_fromfile(pairvocab_path,word2index)
@@ -180,12 +181,14 @@ if __name__ == '__main__':
                 index2word[cont_wordvocab]=word
                 cont_wordvocab+=1
         #Extract contexts
+        print ("Vocabulary loaded. Now extracting contexts...(this can take a few hours depending on the size of the corpus)\n")
         dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index)
         #Get relative_init vectors
+        print ("All central contexts have been already loaded. Now computing relative-init vectors...")
         relativeinit_fromcontexts_dict(output_path,dict_contexts,modelwords,vocabwords,dimwords,norm_vectors,index2word,min_freq_cooc)
     else:
         relativeinit_fromcontexts_file(output_path,input_contexts_path,modelwords,vocabwords,dimwords,norm_vectors)
-    
+    print ("FINISHED. Relative-init vectors are available at "+output_path)
 
 
     

@@ -81,9 +81,10 @@ if __name__ == '__main__':
     parser.add_argument('-corpus', '--corpus_file', help='Input corpus path (tokenized)', required=True)
     parser.add_argument('-pairvocab', '--input_vocab',
         help='Path of the input pair vocabulary file (tab-separated with at least two columns, one pair per line)', required=False, default="./vocab/pair_vocab_pmi.txt")
-    parser.add_argument('-wordfreq', '--input_wordfrequency_file', help='Path of the frequency dictionary file', required=False, default="false")
+    parser.add_argument('-wordfreq', '--input_wordfrequency_file',
+        help='Path of the frequency dictionary file. If standard vocabulary, you can write ./vocab/word_frequency_all.txt', required=False, default="false")
     parser.add_argument('-min_freq', '--minimum_frequency',
-        help='Minimum frequency of words (needed only if word frequency file is not given). If standard vocabulary, you can write ./vocab/word_frequency_all.txt', required=False, default=5)
+        help='Minimum frequency of words (needed only if word frequency file is not given)', required=False, default=5)
     parser.add_argument('-pos_contexts', '--position_contexts', help='Type/s of context to extract ("central" or "all")', required=False, default="central")
     parser.add_argument('-output_contexts', '--output_folder', help='Output directory to store contexts (needed if only central)', required=False, default="./contexts/")
     parser.add_argument('-window', '--window_size', help='Co-ocurring window size', required=False, default=10)
