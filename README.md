@@ -26,6 +26,8 @@ Available now: relative-init
 python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
 ```
 
+With this command you can directly get your relation embeddings given a tokenized corpus as input. The input word embeddings can be *txt* or *bin*, as those formats accepted by gensim. The input word embeddings can be trained on the same corpus (as in the paper) or pre-trained on a different corpus.
+
 Example:
 
 ```bash
@@ -62,12 +64,19 @@ A number of optional parameters can be specified to your needs:
 
 -max_pairsize: Maximum number of word pairs. Default: 3000000
 
+##### Example:
+
+For example, if you would like to give your own pair vocabulary as input and specify a shorter window size to 5 (instead of the default 10), you can type the following:
+
+```bash
+python relative_init.py -corpus sample_wikipedia_corpus.txt -embeddings fasttext_wikipedia_en_300d.bin -pairvocab pair_vocab.txt -window 5 
+```
 
 #### Working step by step
 
 It is also possible to run relative-init step by step:
 
-1. "get_vocabulary.py": This script outputs word vocabulary ("word_vocab.txt"), pair vocabulary ("pair_vocab_pmi") and word frequency dictionary ("word_frequency_all.txt"), computed on the input corpus.
+1. "get_vocabulary.py": This script outputs word vocabulary ("word_vocab.txt"), pair vocabulary ("pair_vocab_pmi.txt") and word frequency dictionary ("word_frequency_all.txt"), computed on the input corpus.
 2. "context_extraction.py": This script extracts contexts for word pairs from the input corpus given a pair vocabulary file.
 3. "relative_init.py": Instead of starting from scratch, contexts from the previous step can be directly provided.
 
