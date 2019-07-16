@@ -76,7 +76,7 @@ A number of optional parameters can be specified to your needs:
 For example, if you would like to give your own pair vocabulary as input and specify a shorter window size to 5 (instead of the default 10), you can type the following:
 
 ```bash
-python relative_init.py -corpus sample_wikipedia_corpus.txt -embeddings fasttext_wikipedia_en_300d.bin -pairvocab pair_vocab.txt -window 5 
+python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fasttext_wikipedia_en_300d.bin -pairvocab pair_vocab.txt -window 5 
 ```
 
 ### Working step by step
