@@ -33,10 +33,12 @@ python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
 
 With this command you can directly get your relation embeddings given a tokenized corpus as input. You can use any word embeddings as input, either in *txt* or *bin* formats (those accepted by gensim). The input word embeddings can be trained on the same corpus (as in the reference paper) or pre-trained on a different corpus.
 
+**Exectution time**: This will very much depend on the size of the corpus and other factors (computer power, parameters, etc.). As an indication, running the default code (as above) in a normal CPU with default parameters on the whole Wikipedia, the total running time is about six hours.
+
 #### Example:
 
 ```bash
-python relative_init.py -corpus sample_wikipedia_corpus.txt -embeddings fasttext_wikipedia_en_300d.bin
+python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fasttext_wikipedia_en_300d.bin
 ```
 
 ### Parameters
