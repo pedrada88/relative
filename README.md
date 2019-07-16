@@ -33,13 +33,13 @@ python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
 
 With this command you can directly get your relation embeddings given a tokenized corpus as input. You can use any word embeddings as input, either in *txt* or *bin* formats (those accepted by gensim). The input word embeddings can be trained on the same corpus (as in the reference paper) or pre-trained on a different corpus.
 
-**Example:**
+#### Example:
 
 ```bash
 python relative_init.py -corpus sample_wikipedia_corpus.txt -embeddings fasttext_wikipedia_en_300d.bin
 ```
 
-#### Parameters
+### Parameters
 
 A number of optional parameters can be specified to your needs: 
 
@@ -77,13 +77,13 @@ For example, if you would like to give your own pair vocabulary as input and spe
 python relative_init.py -corpus sample_wikipedia_corpus.txt -embeddings fasttext_wikipedia_en_300d.bin -pairvocab pair_vocab.txt -window 5 
 ```
 
-#### Working step by step
+### Working step by step
 
 It is also possible to run relative-init step by step:
 
-1. "get_vocabulary.py": This script outputs word vocabulary ("word_vocab.txt"), pair vocabulary ("pair_vocab_pmi.txt") and word frequency dictionary ("word_frequency_all.txt"), computed on the input corpus.
-2. "context_extraction.py": This script extracts contexts for word pairs from the input corpus given a pair vocabulary file.
-3. "relative_init.py": Instead of starting from scratch, contexts from the previous step can be directly provided.
+1. *get_vocabulary.py*: This script outputs word vocabulary ("word_vocab.txt"), pair vocabulary ("pair_vocab_pmi.txt") and word frequency dictionary ("word_frequency_all.txt"), computed on the input corpus.
+2. *context_extraction.py*: This script extracts contexts for word pairs from the input corpus given a pair vocabulary file.
+3. *relative_init.py*: Instead of starting from scratch, contexts from the previous step can be directly provided.
 
 Parameters are similar to the ones indicated above, check documentation in the script if in doubt. Some important notes/advice when working with the code:
 
