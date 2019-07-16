@@ -5,10 +5,15 @@ The following repository includes the code and pre-trained cross-lingual word em
 
 ### Pre-trained embeddings
 
-We release the 300-dimension word embeddings used in our experiments, trained on the English Wikipedia. \[Coming soon\]
-In addition, we also release the English Wikipedia dump used in our experiments, and the 300-dimension pre-trained FastText embeddings trained on the same corpus. \[Coming soon\]
+We release the corpus and pre-trained embeddings used in our experiments, in both *txt* and *bin* formats:
+- English Wikipedia corpus (tokenized and lowercased), January 2018: \[[zip](https://drive.google.com/file/d/17EBy4GD4tXl9G4NTjuIuG5ET7wfG4-xa/view?usp=sharing)\] ~4.3GB
+- 300-dimension FastText word embeddings, trained on the English Wikipedia: \[[bin](https://drive.google.com/file/d/1dQm_haKr2ZrQBvyBlCVnwL2W8mwj0T4D/view?usp=sharing)\] ~ 2.6GB \| \[[txt](https://drive.google.com/file/d/1r9RFdyqg998UaLA0huZc9PIwF8rBlITN/view?usp=sharing)\] ~5.1GB
+- 300-dimension Relative-init relation embeddings: \[[bin](https://drive.google.com/file/d/1HVJnTjcaQ3aCLdwTZwiGLpMDyEylx-zS/view?usp=sharing)\] ~1.4GB \| \[[txt](https://drive.google.com/file/d/1SFcW6MxQI5N38R3mG1Pe10AVWc38NGFI/view?usp=sharing)\] ~7.1GB
+- 300-dimension Relative relation embeddings (normalized): \[[bin](https://drive.google.com/file/d/1-w39MIMUkYuy2wdVGwOcgKimUV1vPOxk/view?usp=sharing)\] ~1.4GB \| \[[txt](https://drive.google.com/file/d/1q0HiGJh93ukHxh_acOuWQAdfyzX-6g_N/view?usp=sharing)\] ~7.1GB
 
 *Note 1:* All vocabulary words are lowercased.
+
+*Note 2:* If you want to convert the binary embedding files to *txt*, you can use convertvec.
 
 ### Code
 
@@ -54,7 +59,7 @@ A number of optional parameters can be specified to your needs:
 
 -output_pairvocab: Co-ocurring window size. Default: 10
 
--stopwords: Path to stopwords file. Default: ./stopwords_en.txt
+-stopwords: Path to stopwords file. Default: stopwords_en.txt
 
 -min_freq: Minimum frequency of words. Default: 5
 
@@ -84,6 +89,8 @@ Parameters are similar to the ones indicated above, check documentation in the s
 
 *Note 1:* If you have memory issues when running the code, you can split your pair vocabulary files in several files and concatenate the resulting output vectors (computation is done independently for each pair).
 
+*Note 2:* If you would like to optimize for speed, you can play with the parameters by e.g. reducing the window size, max_pairsize or wordsize, or by augmenting min_occ, min_freq or min_freq_cooc. This will also have an effect on a reduced memory workload.
+
 
 ### Reference paper
 
@@ -98,3 +105,4 @@ If you use any of these resources, please cite the following [paper](http://jose
 }
 
 ```
+If you use FastText, please also cite its corresponding paper.
