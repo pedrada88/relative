@@ -85,7 +85,7 @@ It is also possible to run relative-init step by step:
 2. *context_extraction.py*: This script extracts contexts for word pairs from the input corpus given a pair vocabulary file.
 3. *relative_init.py*: Instead of starting from scratch, contexts from the previous step can be directly provided.
 
-Parameters are similar to the ones indicated above, check documentation in the script if in doubt. Some important notes/advice when working with the code:
+Parameters for each of these steps are similar to the ones indicated above, check documentation in the script if in doubt. Some important notes/advice when working with the code:
 
 *Note 1:* If you have memory issues when running the code, you can split your pair vocabulary files in several files and concatenate the resulting output vectors (computation is done independently for each pair).
 
