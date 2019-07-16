@@ -25,7 +25,7 @@ In the following you can find how to easily get your relation embeddings given a
 - NumPy
 - Gensim
 
-### Quick usage
+### Quick usage: Get your own relation embeddings
 
 ```bash
 python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
