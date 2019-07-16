@@ -7,7 +7,7 @@ The following repository includes the code and pre-trained cross-lingual word em
 
 We release the corpus and pre-trained embeddings used in our experiments, in both *txt* and *bin* formats:
 - English **Wikipedia** corpus (tokenized and lowercased), January 2018: \[[zip](https://drive.google.com/file/d/17EBy4GD4tXl9G4NTjuIuG5ET7wfG4-xa/view?usp=sharing)\] ~4.3GB
-- 300-dimension **FastText** word embeddings, trained on the English Wikipedia: \[[bin](https://drive.google.com/file/d/1dQm_haKr2ZrQBvyBlCVnwL2W8mwj0T4D/view?usp=sharing)\] ~ 2.6GB ; \[[txt](https://drive.google.com/file/d/1r9RFdyqg998UaLA0huZc9PIwF8rBlITN/view?usp=sharing)\] ~5.1GB
+- 300-dimension **FastText** word embeddings: \[[bin](https://drive.google.com/file/d/1dQm_haKr2ZrQBvyBlCVnwL2W8mwj0T4D/view?usp=sharing)\] ~ 2.6GB ; \[[txt](https://drive.google.com/file/d/1r9RFdyqg998UaLA0huZc9PIwF8rBlITN/view?usp=sharing)\] ~5.1GB
 - 300-dimension **Relative-init** relation embeddings: \[[bin](https://drive.google.com/file/d/1HVJnTjcaQ3aCLdwTZwiGLpMDyEylx-zS/view?usp=sharing)\] ~1.4GB ; \[[txt](https://drive.google.com/file/d/1SFcW6MxQI5N38R3mG1Pe10AVWc38NGFI/view?usp=sharing)\] ~7.1GB
 - 300-dimension **Relative** relation embeddings (normalized): \[[bin](https://drive.google.com/file/d/1-w39MIMUkYuy2wdVGwOcgKimUV1vPOxk/view?usp=sharing)\] ~1.4GB ; \[[txt](https://drive.google.com/file/d/1q0HiGJh93ukHxh_acOuWQAdfyzX-6g_N/view?usp=sharing)\] ~7.1GB
 
