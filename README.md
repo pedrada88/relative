@@ -110,3 +110,10 @@ If you use any of these resources, please cite the following [paper](http://jose
 
 ```
 If you use FastText, please also cite its corresponding paper.
+
+License
+-------
+
+Code and data in this repository are released open-source.
+
+Copyright (C) 2019, Jose Camacho Collados.
