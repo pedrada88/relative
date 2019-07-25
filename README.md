@@ -13,9 +13,7 @@ We release the corpus and pre-trained embeddings used in our experiments, in bot
 
 *Note 1:* All vocabulary words are lowercased.
 
-*Note 2:* If you want to convert the binary embedding files to *txt*, you can use convertvec.
-
-*Note 3:* Underscore "_" is used to separate tokens in a multiword expression (e.g. united_states) in the corpus. Double underscore ("__") is used to separate words within the word pair (e.g. paris__france) in the relation embedding files.
+*Note 2:* Underscore "_" is used to separate tokens in a multiword expression (e.g. united_states) in the corpus. Double underscore ("__") is used to separate words within the word pair (e.g. paris__france) in the relation embedding files.
 
 ### Code
 
