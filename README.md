@@ -13,7 +13,7 @@ We release the corpus and pre-trained embeddings used in our experiments, in bot
 
 *Note 1:* All vocabulary words are lowercased.
 
-*Note 2:* If you want to convert the binary embedding files to *txt*, you can use convertvec.
+*Note 2:* Underscore "_" is used to separate tokens in a multiword expression (e.g. united_states) in the corpus. Double underscore ("__") is used to separate words within the word pair (e.g. paris__france) in the relation embedding files.
 
 ### Code
 
@@ -25,7 +25,7 @@ In the following you can find how to easily get your relation embeddings given a
 - NumPy
 - Gensim
 
-### Quick usage
+### Quick start: Get your own relation embeddings
 
 ```bash
 python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
@@ -55,7 +55,7 @@ A number of optional parameters can be specified to your needs:
 
 -min_freq_cooc: Minimum frequency of words between word pair: increasing the number can speed up the calculations and reduce memory but we would recommend keeping this number low. Default: 1
 
--pairvocab: Path of the input pair vocabulary file (tab-separated with at least two columns, one pair per line).
+-pairvocab: Path of the input pair vocabulary file (tab-separated with at least two columns, one word pair per line).
 
 -wordsize: Maximum number of words considered (sorted by frequency). Default: 100000
 
@@ -70,6 +70,8 @@ A number of optional parameters can be specified to your needs:
 -min_occ: Minimum number of occurrences required for word pairs. Default: 5
 
 -max_pairsize: Maximum number of word pairs. Default: 3000000
+
+-symmetry: Indicates whether pairs are symmetric (true) or not (false). Default: false
 
 #### Example:
 
@@ -108,3 +110,10 @@ If you use any of these resources, please cite the following [paper](http://jose
 
 ```
 If you use FastText, please also cite its corresponding paper.
+
+License
+-------
+
+Code and data in this repository are released open-source.
+
+Copyright (C) 2019, Jose Camacho Collados.
