@@ -51,12 +51,14 @@ def get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,al
     dict_pmi.clear()
     for index2 in dict_weight[index1]:
       if symmetry=="true":
-        if dict_weight[index1][index2][1]+dict_weight[index1][index2][2]>=min_occ:
-          if index2 in dict_weight and index1 in dict_weight[index2]:
-            pmi_score=pmi_smoothed(dict_weight[index1][index2][0]+dict_weight[index2][index1][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
-          else:
+        if index2 in dict_weight and index1 in dict_weight[index2]:
+          if dict_weight[index1][index2][1]+dict_weight[index2][index1][1]>=min_occ:
+            pmi_score=pmi_smoothed(dict_weight[index1][index2][0]+dict_weight[index2][index1][0],total_cooc,dict_weight_word1[index1]+dict_weight_word2[index1],dict_weight_word1[index2]+dict_weight_word2[index2],alpha_smoothing)
+            dict_pmi[index2]=pmi_score
+        else:
+          if dict_weight[index1][index2][1]>=min_occ:
             pmi_score=pmi_smoothed(dict_weight[index1][index2][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
-          dict_pmi[index2]=pmi_score
+            dict_pmi[index2]=pmi_score
       else:
         if dict_weight[index1][index2][1]>=min_occ:
           pmi_score=pmi_smoothed(dict_weight[index1][index2][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
