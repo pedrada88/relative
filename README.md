@@ -45,33 +45,33 @@ python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fastte
 
 A number of optional parameters can be specified to your needs: 
 
--contexts: Path of the input contexts directory, so these do not need to be re-compiled (output of "context_extraction.py").
+*-contexts*: Path of the input contexts directory, so these do not need to be re-compiled (output of "context_extraction.py").
 
--norm: Output vectors normalized ("true") or not ("false"). Default: false
+*-norm*: Output vectors normalized ("true") or not ("false"). Default: false
 
--wordfreq: Path of the frequency dictionary file.
+*-wordfreq*: Path of the frequency dictionary file.
 
--window: Co-ocurring window size. Default: 10
+*-window*: Co-ocurring window size. Default: 10
 
--min_freq_cooc: Minimum frequency of words between word pair: increasing the number can speed up the calculations and reduce memory but we would recommend keeping this number low. Default: 1
+*-min_freq_cooc*: Minimum frequency of words between word pair: increasing the number can speed up the calculations and reduce memory but we would recommend keeping this number low. Default: 1
 
--pairvocab: Path of the input pair vocabulary file (tab-separated with at least two columns, one word pair per line).
+*-pairvocab*: Path of the input pair vocabulary file (tab-separated with at least two columns, one word pair per line).
 
--wordsize: Maximum number of words considered (sorted by frequency). Default: 100000
+*-wordsize*: Maximum number of words considered (sorted by frequency). Default: 100000
 
--output_pairvocab: Co-ocurring window size. Default: 10
+*-output_pairvocab*: Co-ocurring window size. Default: 10
 
--stopwords: Path to stopwords file. Default: stopwords_en.txt
+*-stopwords*: Path to stopwords file. Default: stopwords_en.txt
 
--min_freq: Minimum frequency of words. Default: 5
+*-min_freq*: Minimum frequency of words. Default: 5
 
--smoothing: Alpha smoothing factor in the pmi calculation. Default: 1
+*-smoothing*: Alpha smoothing factor in the pmi calculation. Default: 1
 
--min_occ: Minimum number of occurrences required for word pairs. Default: 5
+*-min_occ*: Minimum number of occurrences required for word pairs. Default: 5
 
--max_pairsize: Maximum number of word pairs. Default: 3000000
+*-max_pairsize*: Maximum number of word pairs. Default: 3000000
 
--symmetry: Indicates whether pairs are symmetric (true) or not (false). Default: false
+*-symmetry*: Indicates whether pairs are symmetric (true) or not (false). Default: false
 
 #### Example:
 
