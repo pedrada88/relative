@@ -29,7 +29,7 @@ def load_dictfreq_file(wordfreq_path):
         cont+=1
     return word2index,index2word
 
-def extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,position='c'):
+def extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,position,symmetry="false"):
     dict_contexts={}
     for word1 in dict_pairvocab:
         index1=word2index[word1]
@@ -45,15 +45,27 @@ def extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,posi
             tokenj=linesplit[j]
             if tokenj in dict_pairvocab[tokeni]:
                 indexj=word2index[tokenj]
-                if indexj not in dict_contexts[indexi]: dict_contexts[indexi][indexj]={}
+                if indexj not in dict_contexts[indexi]:
+                    if symmetry=="true":
+                        if indexj not in dict_contexts and indexi not in dict_contexts[indexj]:
+                            dict_contexts[indexi][indexj]={}
+                            flip=False
+                        else:
+                            flip=True
+                    else:
+                        dict_contexts[indexi][indexj]={}
                 if position=='c': list_iterate=linesplit[i+1:j]
                 elif position=='l': list_iterate=linesplit[max(i-10,0):i]
                 else: list_iterate=linesplit[j+1:min(j+11,len(linesplit))]
                 for token_cooc in list_iterate:
                     if token_cooc in word2index:
                         index_cooc=word2index[token_cooc]
-                        if index_cooc not in dict_contexts[indexi][indexj]: dict_contexts[indexi][indexj][index_cooc]=1
-                        else: dict_contexts[indexi][indexj][index_cooc]+=1
+                        if symmetry=="true" and flip==True:
+                            if index_cooc not in dict_contexts[indexi][indexj]: dict_contexts[indexj][indexi][index_cooc]=1
+                            else: dict_contexts[indexj][indexi][index_cooc]+=1
+                        else:
+                            if index_cooc not in dict_contexts[indexi][indexj]: dict_contexts[indexi][indexj][index_cooc]=1
+                            else: dict_contexts[indexi][indexj][index_cooc]+=1
     return dict_contexts
                 
 def print_contexts(dict_contexts,output_folder_path,min_freq_cooc,index2word):
@@ -88,6 +100,7 @@ if __name__ == '__main__':
     parser.add_argument('-pos_contexts', '--position_contexts', help='Type/s of context to extract ("central" or "all")', required=False, default="central")
     parser.add_argument('-output_contexts', '--output_folder', help='Output directory to store contexts (needed if only central)', required=False, default="./contexts/")
     parser.add_argument('-window', '--window_size', help='Co-ocurring window size', required=False, default=10)
+    parser.add_argument('-symmetry', '--symmetry', help='Indicates whether pairs are symmetric (true) or not (false)', required=False, default="false")
     parser.add_argument('-min_freq_cooc', '--minimum_frequency_context',
         help='Minimum frequency of words between word pair: increasing the number can speed up the calculations and reduce memory but we would recommend keeping this number low', required=False, default=1)
     
@@ -101,6 +114,7 @@ if __name__ == '__main__':
     pos_contexts=args['position_contexts'].lower()
     if pos_contexts=="central": output_folder_path=os.path.realpath(args['output_folder'])+"/"
     window_size=int(args['window_size'])
+    symmetry=args['symmetry'].lower()
     min_freq_cooc=int(args['minimum_frequency_context'])
 
     # Retrieve frequency dictionary
@@ -127,7 +141,7 @@ if __name__ == '__main__':
     print ("Vocabulary loaded. Now extracting contexts...(this can take a few hours depending on the size of the corpus)")
     
     # Extract and print contexts
-    dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index)
+    dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,'c',symmetry)
     if pos_contexts=="central":
         print ("Central contexts succesfully extracted. Now printing them in "+output_folder_path+" ...")
         print_contexts(dict_contexts,output_folder_path,min_freq_cooc,index2word)

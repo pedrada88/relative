@@ -114,6 +114,7 @@ if __name__ == '__main__':
         help='Minimum frequency of words between word pair: increasing the number can speed up the calculations and reduce memory but we would recommend keeping this number low', required=False, default=1)
     parser.add_argument('-pairvocab', '--input_vocab',
         help='Path of the input pair vocabulary file (tab-separated with at least two columns, one pair per line)', required=False, default="false")
+    parser.add_argument('-symmetry', '--symmetry', help='Indicates whether pairs are symmetric (true) or not (false)', required=False, default="false")
 
     # The following parameters are needed if pair vocabulary is not provided
     
@@ -144,6 +145,7 @@ if __name__ == '__main__':
     
     if input_contexts_path=="false":
         pairvocab_path=args['input_vocab']
+        symmetry=args['symmetry'].lower()
         if pairvocab_path.lower()=="false":
             num_words=int(args['wordvocabulary_size'])
             alpha_smoothing=float(args['alpha_smoothing_factor'])
@@ -169,7 +171,7 @@ if __name__ == '__main__':
                     index2word[cont_wordvocab]=word
                     cont_wordvocab+=1
             print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
-            set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,"False")
+            set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,"false",symmetry)
             dict_pairvocab=get_dict_pairvocab_fromset(set_pairvocab,word2index)
         else:
             # Retrieve pair and word vocabulary (dictionary)
@@ -182,7 +184,7 @@ if __name__ == '__main__':
                 cont_wordvocab+=1
         #Extract contexts
         print ("Vocabulary loaded. Now extracting contexts...(this can take a few hours depending on the size of the corpus)\n")
-        dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index)
+        dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,symmetry)
         #Get relative_init vectors
         print ("All central contexts have been already loaded. Now computing relative-init vectors...")
         relativeinit_fromcontexts_dict(output_path,dict_contexts,modelwords,vocabwords,dimwords,norm_vectors,index2word,min_freq_cooc)

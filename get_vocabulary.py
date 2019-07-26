@@ -40,26 +40,35 @@ def get_dict_weights(corpus_path,set_wordvocab,window_size,word2index):
               dict_weight_word2[indexj]+=weight
   return dict_weight,dict_weight_word1,dict_weight_word2,total_cooc
 
-def get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,output_path_pairvocab):
+def get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,output_path_pairvocab,symmetry="false"):
   max_neighbours_per_word=int(max_pairsize/len(set_wordvocab))
   dict_weight,dict_weight_word1,dict_weight_word2,total_cooc=get_dict_weights(corpus_path,set_wordvocab,window_size,word2index)
   dict_pmi={}
   set_pairs=set()
-  if output_path_pairvocab!="False": output_file=open(output_path_pairvocab,'w',encoding='utf-8')
+  if output_path_pairvocab.lower()!="false": output_file=open(output_path_pairvocab,'w',encoding='utf-8')
   for index1 in dict_weight:
     total_cooc_word1=0
     dict_pmi.clear()
     for index2 in dict_weight[index1]:
-      if dict_weight[index1][index2][1]>=min_occ:
-        pmi_score=pmi_smoothed(dict_weight[index1][index2][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
-        dict_pmi[index2]=pmi_score
+      if symmetry=="true":
+        if dict_weight[index1][index2][1]+dict_weight[index1][index2][2]>=min_occ:
+          if index2 in dict_weight and index1 in dict_weight[index2]:
+            pmi_score=pmi_smoothed(dict_weight[index1][index2][0]+dict_weight[index2][index1][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
+          else:
+            pmi_score=pmi_smoothed(dict_weight[index1][index2][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
+          dict_pmi[index2]=pmi_score
+      else:
+        if dict_weight[index1][index2][1]>=min_occ:
+          pmi_score=pmi_smoothed(dict_weight[index1][index2][0],total_cooc,dict_weight_word1[index1],dict_weight_word2[index2],alpha_smoothing)
+          dict_pmi[index2]=pmi_score
     list_pmi_sorted=sorted(dict_pmi.items(), key=operator.itemgetter(1), reverse=True)[:max_neighbours_per_word]
     word1=index2word[index1]
     for index2,pmi_score in list_pmi_sorted:
       word2=index2word[index2]
       set_pairs.add((word1,word2))
-      if output_path_pairvocab!="False": output_file.write(word1+"\t"+word2+"\t"+str(round(pmi_score,3))+"\n")
-  if output_path_pairvocab!="False":output_file.close()
+      if symmetry=="true" and (word2,word1) in set_pairs: continue
+      if output_path_pairvocab.lower()!="False": output_file.write(word1+"\t"+word2+"\t"+str(round(pmi_score,3))+"\n")
+  if output_path_pairvocab.lower()!="False":output_file.close()
   return set_pairs
 
 def get_dict_pairvocab_fromset(set_pairs,word2index):
@@ -115,6 +124,7 @@ if __name__ == '__main__':
     parser.add_argument('-max_pairsize', '--max_pairvocabulary_size', help='Maximum number of word pairs', required=False, default=3000000)
     parser.add_argument('-smoothing', '--alpha_smoothing_factor', help='Alpha smoothing factor in the pmi calculation (default=1)', required=False, default=0.75)
     parser.add_argument('-min_freq', '--minimum_frequency', help='Minimum frequency of words', required=False, default=5)
+    parser.add_argument('-symmetry', '--symmetry', help='Indicates whether pairs are symmetric (true) or not (false)', required=False, default="false")
 
     args = vars(parser.parse_args())
 
@@ -127,7 +137,8 @@ if __name__ == '__main__':
     max_pairsize=int(args['max_pairvocabulary_size'])
     alpha_smoothing=float(args['alpha_smoothing_factor'])
     min_freq=int(args['minimum_frequency'])
-
+    symmetry=args['symmetry'].lower()
+    
 
     print ("Loading word frequency dictionary...")
     
@@ -135,6 +146,7 @@ if __name__ == '__main__':
     dict_freq=get_word_vocab(corpus_path)
     
     #Ouput file frequency dictionary
+    if not os.path.exists(output_path): os.mkdir(output_path)
     output_path_dictfreq=output_path+"word_frequency_all.txt"
     dictfreq_file=open(output_path_dictfreq,'w',encoding='utf-8')
 
@@ -166,7 +178,7 @@ if __name__ == '__main__':
     
     #Get and print pair vocabulary
     output_path_pairvocab=output_path+"pair_vocab_pmi.txt"
-    set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,output_path_pairvocab)
+    set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,output_path_pairvocab,symmetry)
     print ("The pair vocabulary has been printed in "+output_path_pairvocab)
     
     #Print final word vocabulary
