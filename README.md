@@ -71,6 +71,8 @@ A number of optional parameters can be specified to your needs:
 
 -max_pairsize: Maximum number of word pairs. Default: 3000000
 
+-symmetry: Indicates whether pairs are symmetric (true) or not (false). Default: false
+
 #### Example:
 
 For example, if you would like to give your own pair vocabulary as input and specify a shorter window size to 5 (instead of the default 10), you can type the following:
