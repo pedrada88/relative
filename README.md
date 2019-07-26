@@ -28,7 +28,7 @@ In the following you can find how to easily get your relation embeddings given a
 ### Quick start: Get your own relation embeddings
 
 ```bash
-python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS
+python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS -output OUTPUT_RELATIVE_EMBEDDINGS
 ```
 
 With this command you can directly get your relation embeddings given a tokenized corpus as input. You can use any word embeddings as input, either in *txt* or *bin* formats (those accepted by gensim). The input word embeddings can be trained on the same corpus (as in the reference paper) or pre-trained on a different corpus.
@@ -38,7 +38,7 @@ With this command you can directly get your relation embeddings given a tokenize
 #### Example:
 
 ```bash
-python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fasttext_wikipedia_en_300d.bin
+python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fasttext_wikipedia_en_300d.bin -output relative_init_vectors.txt
 ```
 
 ### Parameters
@@ -78,7 +78,7 @@ A number of optional parameters can be specified to your needs:
 For example, if you would like to give your own pair vocabulary as input and specify a shorter window size to 5 (instead of the default 10), you can type the following:
 
 ```bash
-python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fasttext_wikipedia_en_300d.bin -pairvocab pair_vocab.txt -window 5 
+python relative_init.py -corpus wikipedia_en_preprocessed.txt -embeddings fasttext_wikipedia_en_300d.bin -output relative_init_vectors.txt -pairvocab pair_vocab.txt -window 5 
 ```
 
 ### Working step by step
