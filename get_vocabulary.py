@@ -69,8 +69,8 @@ def get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,al
       word2=index2word[index2]
       set_pairs.add((word1,word2))
       if symmetry=="true" and (word2,word1) in set_pairs: continue
-      if output_path_pairvocab.lower()!="False": output_file.write(word1+"\t"+word2+"\t"+str(round(pmi_score,3))+"\n")
-  if output_path_pairvocab.lower()!="False":output_file.close()
+      if output_path_pairvocab.lower()!="false": output_file.write(word1+"\t"+word2+"\t"+str(round(pmi_score,3))+"\n")
+  if output_path_pairvocab.lower()!="false":output_file.close()
   return set_pairs
 
 def get_dict_pairvocab_fromset(set_pairs,word2index):
