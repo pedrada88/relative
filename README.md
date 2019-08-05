@@ -67,7 +67,7 @@ A number of optional parameters can be specified to your needs:
 
 *-smoothing*: Alpha smoothing factor in the pmi calculation. Default: 1
 
-*-min_occ*: Minimum number of occurrences required for word pairs. Default: 5
+*-min_occ*: Minimum number of occurrences required for word pairs. Default: 20
 
 *-max_pairsize*: Maximum number of word pairs. Default: 3000000
 
