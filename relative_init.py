@@ -76,6 +76,7 @@ def relativeinit_fromcontexts_dict(output_path,dict_contexts,modelwords,vocabwor
             if dict_contexts[index1][index2]=={}: continue
             processed=False
             vector_pair=np.zeros(dimwords)
+            cont_pair_cooc=0
             for index_cooc in dict_contexts[index1][index2]:
                 freq=dict_contexts[index1][index2][index_cooc]
                 if freq>=min_freq_cooc:
@@ -84,13 +85,18 @@ def relativeinit_fromcontexts_dict(output_path,dict_contexts,modelwords,vocabwor
                         processed=True
                         vector_word_cooc=modelwords.__getitem__(word_cooc)
                         vector_pair=vector_pair+(freq*vector_word_cooc)
+                        cont_pair_cooc+=1
             if processed==True:
                 pair=index2word[index1]+"__"+index2word[index2]
                 cont_lines+=1
-                if norm_vectors==True: vector_pair=vector_pair/np.linalg.norm(vector_pair)
                 txtfile.write(pair)
-                for dim in vector_pair:
-                    txtfile.write(" "+str(dim))
+                if norm_vectors==True:
+                    vector_pair=vector_pair/np.linalg.norm(vector_pair)
+                    for dim in vector_pair:
+                        txtfile.write(" "+str(dim))
+                else:
+                    for dim in vector_pair:
+                        txtfile.write(" "+str(dim/cont_pair_cooc))
                 txtfile.write("\n")               
     txtfile.close()
     print ("Done computing relative_init relation embeddings, adding first line to file...")
