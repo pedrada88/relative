@@ -28,7 +28,7 @@ def insert(original_path,string):
     with open(original_path,'r') as f:
         with open(original_path+".temp",'w') as f2: 
             f2.write(string)
-            for line in original_path:
+            for line in f:
                 f2.write(line)
     os.rename(original_path+".temp",original_path)
 
