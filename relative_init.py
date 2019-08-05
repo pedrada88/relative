@@ -24,12 +24,13 @@ def load_embeddings(embeddings_path):
     vocab=set(vocab)
     return model,vocab,dims
 
-def insert(originalfile,string):
-    with open(originalfile,'r') as f:
-        with open('newfile.txt','w') as f2: 
+def insert(original_path,string):
+    with open(original_path,'r') as f:
+        with open(original_path+".temp",'w') as f2: 
             f2.write(string)
-            f2.write(f.read())
-    os.rename('newfile.txt',originalfile)
+            for line in original_path:
+                f2.write(line)
+    os.rename(original_path+".temp",original_path)
 
 def relativeinit_fromcontexts_file(output_path,input_contexts_path,modelwords,vocabwords,dimwords,norm_vectors):
     txtfile=open(output_path,'w',encoding='utf-8')
@@ -125,7 +126,7 @@ if __name__ == '__main__':
     parser.add_argument('-min_freq', '--minimum_frequency',
                         help='Minimum frequency of words', required=False, default=5)
     parser.add_argument('-smoothing', '--alpha_smoothing_factor', help='Alpha smoothing factor in the pmi calculation', required=False, default=1)
-    parser.add_argument('-min_occ', '--min_occurrences_pairs', help='Minimum number of occurrences required for word pairs', required=False, default=5)
+    parser.add_argument('-min_occ', '--min_occurrences_pairs', help='Minimum number of occurrences required for word pairs', required=False, default=20)
     parser.add_argument('-max_pairsize', '--max_pairvocabulary_size', help='Maximum number of word pairs', required=False, default=3000000)
     
     args = vars(parser.parse_args())
