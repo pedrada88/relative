@@ -102,7 +102,7 @@ Parameters for each of these steps are similar to the ones indicated above, chec
 
 If you use any of these resources, please cite the following [paper](http://josecamachocollados.com/papers/relative_ijcai2019.pdf):
 ```bash
-@InProceedings{camachocollados:relativeijcai2019,
+@InProceedings{camachocollados:ijcai2019relative,
   author = 	"Camacho-Collados, Jose and Espinosa-Anke, Luis and Shoaib, Jameel and Schockaert, Steven",
   title = 	"A Latent Variable Model for Learning Distributional Relation Vectors",
   booktitle = 	"Proceedings of IJCAI",
