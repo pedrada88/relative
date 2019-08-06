@@ -33,7 +33,7 @@ In the following you can find how to easily get your relation embeddings given a
 python relative_init.py -corpus INPUT_CORPUS -embeddings INPUT_WORDEMBEDDINGS -output OUTPUT_RELATIVE_EMBEDDINGS
 ```
 
-With this command you can directly get your relation embeddings given a tokenized corpus as input. You can use any word embeddings as input, either in *txt* or *bin* formats (those accepted by gensim). The input word embeddings can be trained on the same corpus (as in the reference paper) or pre-trained on a different corpus.
+With this command you can directly get your relation embeddings given a tokenized corpus as input. You can use **any word embeddings as input**, either in *txt* or *bin* formats (those accepted by gensim). The input word embeddings can be trained on the same corpus (as in the reference paper) or pre-trained on a different corpus.
 
 **Exectution time**: This will very much depend on the size of the corpus and other factors (computer power, parameters, etc.). As an indication, running the default code (as above) in a normal CPU with default parameters on the whole Wikipedia, the total running time is about six hours.
 
