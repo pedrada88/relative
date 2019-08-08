@@ -63,7 +63,7 @@ A number of optional parameters can be specified to your needs:
 
 *-output_pairvocab*: Co-ocurring window size. Default: 10
 
-*-stopwords*: Path to stopwords file. Default: stopwords_en.txt
+*-stopwords*: Path to stopwords file ("false" if no stopwords to be used). Default: stopwords_en.txt
 
 *-min_freq*: Minimum frequency of words. Default: 5
 
