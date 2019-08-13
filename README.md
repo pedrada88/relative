@@ -91,11 +91,13 @@ It is also possible to run relative-init step by step:
 2. *context_extraction.py*: This script extracts contexts for word pairs from the input corpus given a pair vocabulary file.
 3. *relative_init.py*: Instead of starting from scratch, contexts from the previous step can be directly provided.
 
-Parameters for each of these steps are similar to the ones indicated above, check documentation in the script if in doubt. Some important notes/advice when working with the code:
+Parameters for each of these steps are similar to the ones indicated above, check documentation in the script if in doubt. Some important tips/notes when working with the code:
 
-*Note 1:* If you have memory issues when running the code, you can split your pair vocabulary files in several files and concatenate the resulting output vectors (computation is done independently for each pair).
+*Tip 1:* If you have memory issues when running the code, you can split your pair vocabulary files in several files and concatenate the resulting output vectors (computation is done independently for each pair).
 
-*Note 2:* If you would like to optimize for speed, you can play with the parameters by e.g. reducing the window size, max_pairsize or wordsize, or by augmenting min_occ, min_freq or min_freq_cooc. This will also have an effect on a reduced memory workload.
+*Tip 2:* If you would like to optimize for speed, you can play with the parameters by e.g. reducing the window size, max_pairsize or wordsize, or by augmenting min_occ, min_freq or min_freq_cooc. This will also have an effect on a reduced memory workload.
+
+*Tip 3:* Depending on the size of your input corpus, you may want to increase the min_occ parameter (if the corpus is large) or decrease it (if the corpus is small). Similarly you can play with the wordsize and max_pairsize parameters.
 
 
 ### Reference paper
