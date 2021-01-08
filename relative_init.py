@@ -152,32 +152,31 @@ if __name__ == '__main__':
     
     if input_contexts_path=="false":
         pairvocab_path=args['input_vocab']
-        symmetry=args['symmetry'].lower()
+        stopwords_path=args['stopwords_path']
+        #Get frequency dictionary from corpus
+        print ("Loading word frequency dictionary...")
+        dict_freq=get_word_vocab(corpus_path)
+        if stopwords_path.lower()=="false": set_stopwords=set()
+        else: set_stopwords=get_stopwords(stopwords_path)
+        word2index={}
+        index2word={}
+        list_freq_sorted=sorted(dict_freq.items(), key=operator.itemgetter(1), reverse=True)
+        cont_wordvocab=0
+        set_wordvocab=set()
+        for word,freq in list_freq_sorted:
+            if freq<min_freq: break
+            if cont_wordvocab<num_words and word not in set_stopwords and "__" not in word and not word.isdigit():
+                set_wordvocab.add(word)
+                word2index[word]=cont_wordvocab
+                index2word[cont_wordvocab]=word
+                cont_wordvocab+=1
+        print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
         if pairvocab_path.lower()=="false":
-            num_words=int(args['wordvocabulary_size'])
+            symmetry=args['symmetry'].lower()
             alpha_smoothing=float(args['alpha_smoothing_factor'])
             min_occ=int(args['min_occurrences_pairs'])
-            stopwords_path=args['stopwords_path']
             max_pairsize=int(args['max_pairvocabulary_size'])
             min_freq_cooc=int(args['minimum_frequency_context'])
-            #Get frequency dictionary from corpus
-            print ("Loading word frequency dictionary...")
-            dict_freq=get_word_vocab(corpus_path)
-            if stopwords_path.lower()=="false": set_stopwords=set()
-            else: set_stopwords=get_stopwords(stopwords_path)
-            word2index={}
-            index2word={}
-            list_freq_sorted=sorted(dict_freq.items(), key=operator.itemgetter(1), reverse=True)
-            cont_wordvocab=0
-            set_wordvocab=set()
-            for word,freq in list_freq_sorted:
-                if freq<min_freq: break
-                if cont_wordvocab<num_words and word not in set_stopwords and "__" not in word and not word.isdigit():
-                    set_wordvocab.add(word)
-                    word2index[word]=cont_wordvocab
-                    index2word[cont_wordvocab]=word
-                    cont_wordvocab+=1
-            print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
             set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,"false",symmetry)
             dict_pairvocab=get_dict_pairvocab_fromset(set_pairvocab,word2index)
         else:
