@@ -170,8 +170,8 @@ if __name__ == '__main__':
                 word2index[word]=cont_wordvocab
                 index2word[cont_wordvocab]=word
                 cont_wordvocab+=1
-        print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
         if pairvocab_path.lower()=="false":
+            print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
             symmetry=args['symmetry'].lower()
             alpha_smoothing=float(args['alpha_smoothing_factor'])
             min_occ=int(args['min_occurrences_pairs'])
@@ -180,6 +180,7 @@ if __name__ == '__main__':
             set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,"false",symmetry)
             dict_pairvocab=get_dict_pairvocab_fromset(set_pairvocab,word2index)
         else:
+            print ("Done loading word frequency dictionary. Now loading input pair file")
             # Retrieve pair and word vocabulary (dictionary)
             dict_pairvocab=get_vocab_fromfile(pairvocab_path,word2index)
         #Extend word2index to words in word embedding vocabulary
