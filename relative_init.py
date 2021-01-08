@@ -145,6 +145,7 @@ if __name__ == '__main__':
     output_path=args['output_vectors_path']
     window_size=int(args['window_size'])
     min_freq=int(args['minimum_frequency'])
+    num_words=int(args['wordvocabulary_size'])
     
     print ("Loading embeddings...")
     modelwords,vocabwords,dimwords=load_embeddings(embeddings_path)
@@ -153,6 +154,8 @@ if __name__ == '__main__':
     if input_contexts_path=="false":
         pairvocab_path=args['input_vocab']
         stopwords_path=args['stopwords_path']
+        symmetry=args['symmetry'].lower()
+        min_freq_cooc=int(args['minimum_frequency_context'])
         #Get frequency dictionary from corpus
         print ("Loading word frequency dictionary...")
         dict_freq=get_word_vocab(corpus_path)
@@ -172,11 +175,9 @@ if __name__ == '__main__':
                 cont_wordvocab+=1
         if pairvocab_path.lower()=="false":
             print ("Done loading word frequency dictionary. Now creating word and pair vocabularies (this can take a couple of hours depending on the size of the corpus)...")
-            symmetry=args['symmetry'].lower()
             alpha_smoothing=float(args['alpha_smoothing_factor'])
             min_occ=int(args['min_occurrences_pairs'])
             max_pairsize=int(args['max_pairvocabulary_size'])
-            min_freq_cooc=int(args['minimum_frequency_context'])
             set_pairvocab=get_pair_vocab(corpus_path,set_wordvocab,window_size,min_occ,max_pairsize,alpha_smoothing,word2index,index2word,"false",symmetry)
             dict_pairvocab=get_dict_pairvocab_fromset(set_pairvocab,word2index)
         else:
