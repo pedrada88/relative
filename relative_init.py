@@ -192,7 +192,7 @@ if __name__ == '__main__':
                 cont_wordvocab+=1
         #Extract contexts
         print ("Vocabulary loaded. Now extracting contexts...(this can take a few hours depending on the size of the corpus)\n")
-        dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,symmetry)
+        dict_contexts=extract_context_pairs(corpus_path,dict_pairvocab,window_size,word2index,position='c',symmetry=symmetry)
         #Get relative_init vectors
         print ("All central contexts have been already loaded. Now computing relative-init vectors...")
         relativeinit_fromcontexts_dict(output_path,dict_contexts,modelwords,vocabwords,dimwords,norm_vectors,index2word,min_freq_cooc)
